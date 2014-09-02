@@ -9,41 +9,117 @@ module.exports = function(gatewayd) {
     response
       .status(200)
       .send({
-        "subject":"http://blog.example.com/article/id/314",
-        "expires":"2010-01-30T09:30:00Z",
+        "subject": "https://snapswap.us",
+        "expires": "2014-01-30T09:30:00Z",
 
-        "aliases":[
-          "http://blog.example.com/cool_new_thing",
-          "http://blog.example.com/steve/article/7"],
+        "aliases": [
+          "ripple:snapswap",
+          "ripple:rMwjYedjc7qqtKYVLiAccJSmCwih4LnE2q"
+        ],
 
-        "properties":{
-          "http://blgx.example.net/ns/version":"1.3",
-          "http://blgx.example.net/ns/ext":null
+        "properties": {
+          "name": "Gateway",
+          "description": "Gateway US Gateway",
+          "rl:type": "gateway",
+
+          "rl:domain": "example.com",
+          "rl:validation_public_key":[ "n9LigbVAi4UeTtKGHHTXNcpBXwBPdVKVTjbSkLmgJvTn6qKB8Mqz"],
+          "rl:ips": [
+            { "address": "r.ripple.com", "port":"51235" },
+            { "address": "162.243.242.204", "port":"51235" },
+            { "address": "23.21.167.100", "port":"51235" },
+            { "address": "107.21.116.214", "port":"51235" },
+          ],
+          "rl:validators": [
+            "n949f75evCHwgyP4fPVgaHqNHxUVN15PsJEZ3B3HnXPcPjcZAoy7",    // RL1
+            "n9MD5h24qrQqiyBC8aeqqCWvpiBiYQ3jxSr91uiDvmrkyHRdYLUj",    // RL2
+            "n9L81uNCaPgtUJfaHh89gmdvXKAmSt5Gdsw2g1iPWaPkAHW5Nm4C",    // RL3
+            "n9KiYM9CgngLvtRCQHZwgC2gjpdaZcCcbt3VboxiNFcKuwFVujzS",    // RL4
+            "n9LdgEtkmGB9E2h3K4Vp7iGUaKuq23Zr32ehxiU8FWY7xoxbWTSA",    // RL5
+            "n9LigbVAi4UeTtKGHHTXNcpBXwBPdVKVTjbSkLmgJvTn6qKB8Mqz"     // SnapSwap
+          ],
+          "rl:accounts": [
+            {
+              "address":"rMwjYedjc7qqtKYVLiAccJSmCwih4LnE2q",
+              "rl:currencies": ["EUR"]
+            }
+          ],
+
+          "rl:hotwallets": [
+            "rEjtM7pApzYS3KyTWndkiUx5wX83Zdy9gd",    // XRP
+            "rsTQ7iwrCik9Ugc3zbpcbo2K3SbAdYJss1",    // EUR
+            "rNGwmUA1oNK35frqavJwkhbLS1Ubcua828",    // GBP
+            "rEk9i7G8ac1kUs1mFjtze1qjj9FzGvXAG ",    // echo
+            "rQsAshmCjPsxkYnxY9GnmBTAeEUaePDAie"     // manual
+          ]
         },
 
-        "links":[
+        "links": [
           {
-            "rel":"author",
-            "type":"text/html",
-            "href":"http://blog.example.com/author/steve",
-            "titles":{
-              "default":"About the Author",
-              "en-us":"Author Information"
-            },
-            "properties":{
-              "http://example.com/role":"editor"
+            "rel": "https://ripple.com/ripple-services/user-account",
+            "href": "https://example.com/api/v1/registrations",
+            "properties": {
+              "version": "1",
+              "signupFields":{
+                "name":{
+                  "type":"email",
+                  "required":"true",
+                  "label":"Email address",
+                  "description":""
+                },
+                "rippleAddress":{
+                  "type":"rippleAddress",
+                  "required":"true",
+                  "label":"Ripple Address",
+                  "description":"Independent ripple address to receive deposits"
+                },
+                "password":{
+                  "type":"email",
+                  "required":"false",
+                  "label":"Account Password",
+                  "description":""
+                }
+              }
             }
           },
           {
-            "rel":"author",
-            "href":"http://example.com/author/john",
-            "titles":{
-              "default":"The other author"
+            "rel": "https://ripple.com/ripple-services/bridge_quotes",
+            "href": "https://example.com/api/v1/bridge/quotes",
+            "properties": {
+              "version": "1",
+              "fields": {
+                "destination_amount": {
+                  "amount": "100",
+                  "currency": "BTC",
+                  "issuer": "optional"
+                },
+                "destination_address": {}
+              }
             }
           },
           {
-            "rel":"copyright",
-            "template":"http://example.com/copyright?id={uri}"
+            "rel": "https://ripple.com/ripple-services/bridge_payments",
+            "href": "https://example.com/api/v1/bridge/payments",
+            "properties": {
+              "version": "1",
+              "fields": {
+                "gateway_transaction_id": "9876",
+                "destination_account": "ripple:r12345",
+                "destination_amount": {"amount":"100", "currency":"EUR", "issuer":"r12345"},
+                "expiration": "1311280970",
+                "sender": "acct:alice@fidor.ru"
+              }
+            }
+          },
+          {
+            "rel": "https://ripple.com/ripple-services/bridge_payments",
+            "href": "https://example.com/api/v1/bridge/payments/:id",
+            "properties": {
+              "version": "1",
+              "fields": {
+                "gateway_transaction_id": "Integer"
+              }
+            }
           }
         ]
       });

@@ -4,7 +4,7 @@
   "description": "Expose /.well-known/host-meta.json in gatewayd.",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "mocha -R spec test/"
   },
   "repository": {
     "type": "git",
