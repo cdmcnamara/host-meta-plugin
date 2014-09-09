@@ -4,13 +4,13 @@ var WebFingerController = require(__dirname+'/lib/webfinger_controller.js');
 
 function HostMetaWebFingerPlugin(options) {
   var router = new express.Router(); 
-  var hostMetaController = new HostMetaController(options);
+  var hostMetaController = new HostMetaController({
+    gatewayd: options.gatewayd
+  });
   var webFingerController = new WebFingerController(options);
-  router.get('/host-meta.json', hostMetaController.get);
-  router.get('/webfinger.json', webFingerController.get);
-  return {
-    router: router
-  }
+  router.get('/host-meta.json', hostMetaController.get.bind(hostMetaController));
+  router.get('/webfinger.json', webFingerController.get.bind(hostMetaController));
+  this.router = router;
 }
 
 module.exports = HostMetaWebFingerPlugin;
