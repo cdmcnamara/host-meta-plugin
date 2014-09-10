@@ -9,7 +9,7 @@ function HostMetaWebFingerPlugin(options) {
   });
   var webFingerController = new WebFingerController(options);
   router.get('/host-meta.json', hostMetaController.get.bind(hostMetaController));
-  router.get('/webfinger.json', webFingerController.get.bind(hostMetaController));
+  router.get('/webfinger', webFingerController.get.bind(webFingerController));
   this.router = router;
 }
 
