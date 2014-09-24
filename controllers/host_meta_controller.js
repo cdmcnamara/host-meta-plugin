@@ -1,8 +1,8 @@
-const HostMetaBuilder = require(__dirname+'/host_meta_builder');
+const HostMetaBuilder = require(__dirname+'/../lib/host_meta_builder');
 function HostMetaController(options) {
   this.gatewayd = options.gatewayd;
   this.builder = new HostMetaBuilder(options);
-};
+}
 
 HostMetaController.prototype = {
   constructor: HostMetaController,

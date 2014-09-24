@@ -1,4 +1,4 @@
-const WebFingerBuilder = require(__dirname+'/webfinger_builder.js');
+const WebFingerBuilder = require(__dirname+'/../lib/webfinger_builder.js');
 const qs = require('qs');
 const url = require('url');
 
@@ -23,7 +23,7 @@ WebfingerController.prototype = {
         .status(500)
         .send({
           success: false,
-          error: error
+          error: error.message
         })
     })
 
