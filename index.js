@@ -1,6 +1,6 @@
 var express = require('express');
-var HostMetaController = require(__dirname+'/lib/host_meta_controller.js');
-var WebFingerController = require(__dirname+'/lib/webfinger_controller.js');
+var HostMetaController = require(__dirname+'/controllers/host_meta_controller.js');
+var WebFingerController = require(__dirname+'/controllers/webfinger_controller.js');
 
 function HostMetaWebFingerPlugin(options) {
   var router = new express.Router(); 
