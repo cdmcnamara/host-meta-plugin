@@ -8,6 +8,7 @@ function HostMetaWebFingerPlugin(options) {
     gatewayd: options.gatewayd
   });
   var webFingerController = new WebFingerController(options);
+  router.get('/host-meta', hostMetaController.get.bind(hostMetaController));
   router.get('/host-meta.json', hostMetaController.get.bind(hostMetaController));
   router.get('/webfinger', webFingerController.get.bind(webFingerController));
   this.router = router;
