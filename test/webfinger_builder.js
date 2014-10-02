@@ -2,11 +2,11 @@ var assert = require('assert');
 var WebfingerBuilder = require(__dirname+'/../lib/webfinger_builder');
 var gatewayd = require('/Users/abiy/code/gatewayd');
 
+var webfingerBuilder = new WebfingerBuilder({
+  gatewayd: gatewayd
+});
+
 describe('Webfinger Builder _validate', function(){
-  
-  var webfingerBuilder = new WebfingerBuilder({
-    gatewayd: gatewayd
-  });
 
   describe('acct:', function(){
       it('should validate requests -- pass', function(done){
@@ -48,6 +48,27 @@ describe('Webfinger Builder _validate', function(){
         })
     });
 
+  });
+
+});
+
+describe('Webfinger Builder _resolve', function(){
+
+  describe('find or create an external account', function(){
+    it('should find record', function(done){
+      webfingerBuilder._resolve({
+        prefix: 'acct',
+        address: 'stevenzeiler@gmail.com'
+      })
+        .then(function(externalAccount){
+          assert(externalAccount.hasOwnProperty('address'));
+          done();
+        })
+        .error(function(error){
+          assert(!error);
+          done();
+        });
+    });
   });
 
 });
