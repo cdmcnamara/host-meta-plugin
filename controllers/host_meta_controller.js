@@ -22,7 +22,7 @@ HostMetaController.prototype = {
         });
     });
   }
-}
+};
 
 module.exports = HostMetaController;
 

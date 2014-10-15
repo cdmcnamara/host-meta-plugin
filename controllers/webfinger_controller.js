@@ -24,11 +24,11 @@ WebfingerController.prototype = {
         .send({
           success: false,
           error: error.message
-        })
-    })
+        });
+    });
 
   }
-}
+};
 
 module.exports = WebfingerController;
 
